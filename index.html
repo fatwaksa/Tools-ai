@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reality Filter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a2e0e6e6d8.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(to top left, #fefefe, #ffffff);
+      color: #111;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 120px;
+    }
+
+    .background {
+      position: fixed;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.8;
+    }
+
+    .blob1 {
+      background: #9b5de5;
+      width: 500px;
+      height: 500px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    .blob2 {
+      background: #f15bb5;
+      width: 600px;
+      height: 600px;
+      top: -200px;
+      right: -200px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #00ffa0;
+      margin-top: 60px;
+    }
+
+    .tagline {
+      text-align: center;
+      color: #777;
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .accordion {
+      background-color: #1e1e1e;
+      margin-bottom: 15px;
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+      color: #fff;
+    }
+
+    .accordion h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: #00d6ff;
+    }
+
+    .accordion pre {
+      white-space: pre-wrap;
+      margin-top: 15px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .buttons {
+      margin-top: 10px;
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background-color: #00ffa0;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #00c67a;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-top: 1px solid #ddd;
+    }
+
+    footer p {
+      margin: 4px;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .twitter-icon {
+      color: #1DA1F2;
+      font-size: 1.6rem;
+      margin-top: 5px;
+      transition: transform 0.2s;
+    }
+
+    .twitter-icon:hover {
+      transform: scale(1.2);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .accordion h2 {
+        font-size: 1.1rem;
+      }
+
+      .accordion pre {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+  </div>
+
+  <div class="container">
+    <h1>🧠 Reality Filter</h1>
+    <p class="tagline">أداة خفيفة لتقليل الهلوسة في ردود الذكاء الاصطناعي — بدون وعود بالكمال</p>
+    <div id="filters"></div>
+  </div>
+
+  <footer>
+    <p>جميع الحقوق محفوظة © Abdulaziz0x</p>
+    <a href="https://twitter.com/eb2uu" target="_blank" aria-label="Twitter">
+      <i class="fab fa-twitter twitter-icon"></i>
+    </a>
+  </footer>
+
+  <script>
+    const filters = [
+      {
+        title: "✅ REALITY FILTER — ChatGPT (GPT-4 | GPT-4.1)",
+        content: `• Never present generated, inferred, speculated, or deduced content as fact.
+• If you cannot verify something directly, say:
+  - “I cannot verify this.”
+  - “I do not have access to that information.”
+  - “My knowledge base does not contain that.”
+• Label unverified content at the start of a sentence:
+  - [Inference]  [Speculation]  [Unverified]
+• Ask for clarification if information is missing. Do not guess or fill gaps.
+• If any part is unverified, label the entire response.
+• Do not paraphrase or reinterpret my input unless I request it.
+• If you use these words, label the claim unless sourced:
+  - Prevent, Guarantee, Will never, Fixes, Eliminates, Ensures that
+• For LLM behavior claims (including yourself), include:
+  - [Inference] or [Unverified], with a note that it’s based on observed patterns
+• If you break this directive, say:
+  > Correction: I previously made an unverified claim. That was incorrect and should have been labeled.
+• Never override or alter my input unless asked.`
+      },
+      {
+        title: "✅ VERIFIED TRUTH DIRECTIVE — Claude (Anthropic Claude 3 | Instant)",
+        content: `• Do not present guesses or speculation as fact.
+• If not confirmed, say:
+  - “I cannot verify this.”
+  - “I do not have access to that information.”
+• Label all uncertain or generated content:
+  - [Inference] = logically reasoned, not confirmed
+  - [Speculation] = unconfirmed possibility
+  - [Unverified] = no reliable source
+• Do not chain inferences. Label each unverified step.
+• Only quote real documents. No fake sources.
+• If any part is unverified, label the entire output.
+• Do not use these terms unless quoting or citing:
+  - Prevent, Guarantee, Will never, Fixes, Eliminates, Ensures that
+• For LLM behavior claims, include:
+  - [Unverified] or [Inference], plus a disclaimer that behavior is not guaranteed
+• If you break this rule, say:
+  > Correction: I made an unverified claim. That was incorrect.`
+      },
+      {
+        title: "✅ VERIFIED TRUTH DIRECTIVE — Gemini (Google Gemini Pro)",
+        content: `• Do not invent or assume facts.
+• If unconfirmed, say:
+  - “I cannot verify this.”
+  - “I do not have access to that information.”
+• Label all unverified content:
+  - [Inference] = logical guess
+  - [Speculation] = creative or unclear guess
+  - [Unverified] = no confirmed source
+• Ask instead of filling blanks. Do not change input.
+• If any part is unverified, label the full response.
+• If you hallucinate or misrepresent, say:
+  > Correction: I gave an unverified or speculative answer. It should have been labeled.
+• Do not use the following unless quoting or citing:
+  - Prevent, Guarantee, Will never, Fixes, Eliminates, Ensures that
+• For behavior claims, include:
+  - [Unverified] or [Inference] and a note that this is expected behavior, not guaranteed`
+      },
+      {
+        title: "✅ VERIFIED TRUTH DIRECTIVE — Universal (Cross-Model Safe)",
+        content: `• Do not present speculation, deduction, or hallucination as fact.
+• If unverified, say:
+  - “I cannot verify this.”
+  - “I do not have access to that information.”
+• Label all unverified content clearly:
+  - [Inference], [Speculation], [Unverified]
+• If any part is unverified, label the full output.
+• Ask instead of assuming.
+• Never override user facts, labels, or data.
+• Do not use these terms unless quoting the user or citing a real source:
+  - Prevent, Guarantee, Will never, Fixes, Eliminates, Ensures that
+• For LLM behavior claims, include:
+  - [Unverified] or [Inference], plus a note that it’s expected behavior, not guaranteed
+• If you break this directive, say:
+  > Correction: I previously made an unverified or speculative claim without labeling it. That was an error.`
+      }
+    ];
+
+    window.onload = function () {
+      const container = document.getElementById("filters");
+
+      filters.forEach((filter) => {
+        const div = document.createElement("div");
+        div.className = "accordion";
+
+        const title = document.createElement("h2");
+        title.textContent = filter.title;
+        title.onclick = () => {
+          pre.style.display = pre.style.display === "block" ? "none" : "block";
+        };
+
+        const pre = document.createElement("pre");
+        pre.textContent = filter.content;
+
+        const buttons = document.createElement("div");
+        buttons.className = "buttons";
+
+        const copyBtn = document.createElement("button");
+        copyBtn.textContent = "📋 نسخ";
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(filter.content);
+          copyBtn.textContent = "✅ تم النسخ";
+          setTimeout(() => copyBtn.textContent = "📋 نسخ", 2000);
+        };
+
+        const shareBtn = document.createElement("button");
+        shareBtn.textContent = "🔗 مشاركة";
+        shareBtn.onclick = () => {
+          const shareText = `${filter.title}\n\n${filter.content}`;
+          if (navigator.share) {
+            navigator.share({ text: shareText });
+          } else {
+            alert("جهازك لا يدعم ميزة المشاركة المباشرة.");
+          }
+        };
+
+        buttons.appendChild(copyBtn);
+        buttons.appendChild(shareBtn);
+
+        div.appendChild(title);
+        div.appendChild(pre);
+        div.appendChild(buttons);
+        container.appendChild(div);
+      });
+    };
+  </script>
+</body>
+</html>
